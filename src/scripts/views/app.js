@@ -1,6 +1,5 @@
 import UrlParser from '../routes/url-parser'
 import routes from '../routes/routes'
-import { LogoutInitiator } from '../utils/auth'
 
 class App {
   constructor () {
