@@ -1,23 +1,34 @@
-import transaction from '../../data/transaction-test'
-import { createDashboardTransactionTableTemplate } from '../../views/template dashboard/template-dashboard'
+import transaction from '../../data/transactionAPI'
+import user from '../../data/userAPI'
+import { createDashboardTransactionTableTemplate, createSearchFilterDataTemplate } from '../../views/template dashboard/template-dashboard'
+import { searchData } from '../search-data'
 
-const Transactions = () => {
-  const renderTransaction = transaction
+const Transactions = async () => {
+  if (!$('#data-container').length) {
+    createSearchFilterDataTemplate()
+  }
+
+  const renderTransaction = await transaction.getTransaction()
   $('#transaction-dashboard').addClass('active')
   $('#list_table').empty()
   $('#list_table').append(createDashboardTransactionTableTemplate())
+  searchData()
 
-  renderTransaction.forEach(deal => {
+  renderTransaction.forEach(async (deal, index) => {
+    if (deal === null) {
+      return undefined
+    }
+    const userResult = await user.getUserById(deal.uid)
     $('#transactionListTable').append(`
             <tr>
-                <td>${deal.transactionId}</td>
-                <td>${deal.userId}</td>
-                <td>${deal.graveSlots}</td>
-                <td>${deal.price}</td>
+                <td>${index}</td>
+                <td>${userResult.displayName}</td>
+                <td>${deal.slots}</td>
+                <td>${deal.total}</td>
                 <td>${deal.date}</td>
                 <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button class='edit-button dashboard-button'>Edit</button>
+                    <button class='delete-button dashboard-button'>Delete</button>
                 </td>
             </tr>
         `)
