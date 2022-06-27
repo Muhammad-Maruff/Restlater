@@ -5,6 +5,8 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+// const { ServiceWorkerPlugin } = require("service-worker-webpack")
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/scripts/index.js'),
@@ -25,6 +27,12 @@ module.exports = {
       template: path.resolve(__dirname, 'src/templates/index.html'),
       filename: 'index.html'
     }),
+    new WorkboxPlugin.GenerateSW({
+      // these options encourage the ServiceWorkers to get in there fast
+      // and not allow any straggling "old" SWs to hang around
+      clientsClaim: true,
+      skipWaiting: true
+    }),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -33,6 +41,7 @@ module.exports = {
         }
       ]
     }),
+    // new ServiceWorkerPlugin(),
     new FaviconsWebpackPlugin({
       logo: path.resolve(__dirname, 'src/public/images/logo.png')
     }),

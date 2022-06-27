@@ -1,5 +1,6 @@
-import grave from '../../data/grave-test'
-import getInitial from '../../utils/get-blok-initial'
+import { isUserSignedIn } from '../../utils/auth'
+import { getBlokData } from '../../utils/blok-data'
+import noAccountPopup from '../../utils/popup/no_account-popup'
 
 const home = {
   render () {
@@ -9,7 +10,7 @@ const home = {
       <img src="./images/logo-large.png" alt="Restlater Logo" height='470px' width='420px'>
       <div id='right-hero'>
         <h1>
-          Prepare yourself and your family for the things that will surely come to human life
+          Prepare yourself and your family for the things that will surely come to human life. Reserve a grave that will be yours forever.
         </h1>
         <a href="javascript:;" onclick="document.location.hash='blok';">
           RESERVE NOW
@@ -67,11 +68,13 @@ const home = {
     `
   },
 
-  afterRender () {
-    Object.keys(grave).forEach(key => {
-      const initial = getInitial(key)
-      const all = grave[key].length
-      const unavailable = getUnavailable(grave[key])
+  async afterRender () {
+    const data = await getBlokData()
+    const blok = data.blokData
+    Object.keys(blok).forEach(key => {
+      const initial = blok[key].initial
+      const all = blok[key].all
+      const unavailable = blok[key].unavailable
       $('#blok-content').append(`
         <div class='blok-item' id='${key}' tabindex='0'>
           <h3>BLOK ${initial}</h3>
@@ -86,20 +89,24 @@ const home = {
 
     $('.blok-item').click((e) => {
       const id = e.currentTarget.id
-      document.location.hash = `#/blok/${id}`
+      checkUser(id)
     })
 
     $('.blok-item').on('keydown', (e) => {
       if (e.keyCode === 13) {
         const id = e.currentTarget.id
-        document.location.hash = `#/blok/${id}`
+        checkUser(id)
       }
     })
   }
 }
 
-const getUnavailable = (slots) => {
-  return slots.filter(item => item.available === false).length
+const checkUser = (id) => {
+  if (!isUserSignedIn()) {
+    noAccountPopup.popupRender()
+    return undefined
+  }
+  document.location.hash = `#/blok/${id}`
 }
 
 export default home
