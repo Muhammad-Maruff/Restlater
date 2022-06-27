@@ -92,6 +92,7 @@ async function authStateObserver (userData) {
       const userAPIData = await user.getUserById(userData.uid)
       sessionStorage.setItem('user', JSON.stringify({ ...userAPIData }))
     }
+    const additionalData = JSON.parse(sessionStorage.getItem('user'))
     // Set the user's profile pic and name.
     userNameElement.textContent = userName
 
@@ -106,6 +107,13 @@ async function authStateObserver (userData) {
     $('#user-name').on('click', () => {
       window.location.hash = '/profile/' + userData.uid
     })
+
+    if (additionalData.admin === true && !$('#dashboard').length) {
+      const dashboard = '<a href="#/dashboard" id="dashboard">DASHBOARD</a>'
+      $(dashboard).insertBefore('#user-name')
+    } else {
+      $('#dashboard').remove()
+    }
   } else {
     // User is signed out!
     // Hide user's profile and sign-out button.

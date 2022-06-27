@@ -701,17 +701,6 @@ textarea {
 
 /* ================= Dashboard ================= */
 
-#dashboard {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin: 2rem;
-  border-radius: 20px;
-  background-color: #3db2ff;
-  color: white;
-  padding: 1rem;
-}
-
 #dashboard-container {
   display: flex;
   flex-grow: 1;
