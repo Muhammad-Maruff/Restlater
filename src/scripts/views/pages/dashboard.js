@@ -2,6 +2,8 @@ import Graves from '../../utils/dashboard-init/dashboard-graves-init'
 import Transactions from '../../utils/dashboard-init/dashboard-transactions-init'
 import Users from '../../utils/dashboard-init/dashboard-users-init'
 import { createLayoutDashboard } from '../template dashboard/template-dashboard'
+import editGraveA from './dashboard-edit/blokA-grave-edit'
+import CrudGraveBlokA from './dashboard-edit/grave-blokA-edit'
 
 const dashboard = {
   render () {
@@ -26,18 +28,29 @@ const dashboard = {
     $('#dashboard-user').on('click', event => {
       event.preventDefault()
       Users()
-      $('a').classList.remove('.active')
+      // $('a').classList.remove('.active')
     })
 
     $('#dashboard-transaction').on('click', event => {
       event.preventDefault()
       Transactions()
-      $('a').classList.remove('.active')
+      // $('a').classList.remove('.active')
     })
 
     $('.dropdown1').on('click', event => {
       event.preventDefault()
       Graves()
+    })
+
+    // Edit dashboard grave
+    $('#dashboard-blok-a').on('click', event => {
+      event.preventDefault()
+      CrudGraveBlokA()
+    })
+
+    $('#dashboard-blok-a').on('click', event => {
+      event.preventDefault()
+      editGraveA()
     })
   }
 }

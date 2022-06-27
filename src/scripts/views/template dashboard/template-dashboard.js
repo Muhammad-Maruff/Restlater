@@ -22,11 +22,11 @@ const createLayoutDashboard = () => `
                 </div>
             </li>
             <ul class="submenu">
-            <li id='dashboard-blok-a'><div>Blok A</div></li>
-            <li id='dashboard-blok-b'><div>Blok B</div></li>
-            <li id='dashboard-blok-c'><div>Blok C</div></li>
-            <li id='dashboard-blok-d'><div>Blok D</div></li>
-            <li id='dashboard-blok-e'><div>Blok E</d></li>
+                <li id='dashboard-blok-a'><div>Blok A</div></li>
+                <li id='dashboard-blok-b'><div>Blok B</div></li>
+                <li id='dashboard-blok-c'><div>Blok C</div></li>
+                <li id='dashboard-blok-d'><div>Blok D</div></li>
+                <li id='dashboard-blok-e'><div>Blok E</d></li>
             </ul>
 
             <li class='menu' id='dashboard-transaction'>
@@ -66,6 +66,7 @@ const createSearchFilterDataTemplate = () => {
 }
 
 const createDashboardUserTableTemplate = () => `
+<h2>List Users</h2>
 <table id="userListTable" class='table-data'>
     <tr>
         <th>User ID</th>
@@ -76,6 +77,7 @@ const createDashboardUserTableTemplate = () => `
 `
 
 const createDashboardTransactionTableTemplate = () => `
+<h2>List Transactions</h2>
 <table id="transactionListTable" class='table-data'>
 <tr>
     <th>Transaction ID</th>
@@ -88,13 +90,34 @@ const createDashboardTransactionTableTemplate = () => `
 </table>
 `
 const createDashboardGravesTableTemplate = () => `
+    <h2>Booked Graves</h2>
     <table id="graveListTable" class='table-data'>
+        <tr id="graveA">
+            <th>Graves A</th>
+        </tr>
+        <tr id="graveB">
+            <th>Graves B</th>
+        </tr>
+        <tr id="graveC">
+            <th>Graves C</th>
+        </tr>
+        <tr id="graveD">
+            <th>Graves D</th>
+        </tr>
+        <tr id="graveE">
+            <th>Graves E</th>
+        </tr>
+    </table>
+`
+
+const createEditGravesDashboardTemplate = (tomb) => `
+    <h2>Edit Blok A Graves</h2>
+    <input type="hidden" id="hfRowIndex" value="" />
+    <table id="editGravesA" class="table-data">
         <tr>
-            <th id="graveA">Graves A</th>
-            <th id="graveB">Graves B</th>
-            <th id="graveC">Graves C</th>
-            <th id="graveD">Graves D</th>
-            <th id="graveE">Graves E</th>
+            <th>ID</th>
+            <th>Available</th>
+            <th>Action</th>
         </tr>
     </table>
 `
@@ -104,5 +127,6 @@ export {
   createDashboardUserTableTemplate,
   createDashboardTransactionTableTemplate,
   createDashboardGravesTableTemplate,
+  createEditGravesDashboardTemplate
   createSearchFilterDataTemplate
 }
