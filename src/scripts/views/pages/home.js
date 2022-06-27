@@ -1,6 +1,5 @@
-import grave from '../../data/graveAPI'
 import { isUserSignedIn } from '../../utils/auth'
-import getInitial from '../../utils/get-blok-initial'
+import { getBlokData } from '../../utils/blok-data'
 import noAccountPopup from '../../utils/popup/no_account-popup'
 
 const home = {
@@ -70,11 +69,12 @@ const home = {
   },
 
   async afterRender () {
-    const blok = await grave.getAllBlok()
+    const data = await getBlokData()
+    const blok = data.blokData
     Object.keys(blok).forEach(key => {
-      const initial = getInitial(key)
-      const all = blok[key].length
-      const unavailable = getUnavailable(blok[key])
+      const initial = blok[key].initial
+      const all = blok[key].all
+      const unavailable = blok[key].unavailable
       $('#blok-content').append(`
         <div class='blok-item' id='${key}' tabindex='0'>
           <h3>BLOK ${initial}</h3>
@@ -99,10 +99,6 @@ const home = {
       }
     })
   }
-}
-
-const getUnavailable = (slots) => {
-  return slots.filter(item => item.available === false).length
 }
 
 const checkUser = (id) => {

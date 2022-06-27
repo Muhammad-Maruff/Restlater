@@ -56,11 +56,9 @@ function signinUI () {
 
 const LogoutInitiator = {
   signOutUser () {
-    console.log(firebase.auth().currentUser.displayName)
-    console.log(getAuth().currentUser.displayName)
     // Sign out of Firebase.
     swal({
-      title: 'LogOut?',
+      title: 'Do you want to logout?',
       text: ' ',
       icon: 'warning',
       buttons: true,
@@ -89,11 +87,9 @@ async function authStateObserver (userData) {
   if (userData) {
     // User is signed in!
     // Get the signed-in user's profile pic and name.
-    console.log(userData)
     const userName = userData.displayName
     if (!sessionStorage.getItem('user')) {
       const userAPIData = await user.getUserById(userData.uid)
-      console.log(userAPIData)
       sessionStorage.setItem('user', JSON.stringify({ ...userAPIData }))
     }
     // Set the user's profile pic and name.
