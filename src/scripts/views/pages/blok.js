@@ -84,7 +84,6 @@ const slotsConfirmation = (price, selected, initial) => {
   $('#confirm-button').prop('disabled', selected.length === 0)
 
   if (selected.length) {
-    console.log(selected)
     $('#confirm-button').css('background-color', '#FFB830')
     $('#confirm-button').css('cursor', 'pointer')
   }

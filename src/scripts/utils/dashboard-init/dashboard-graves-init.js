@@ -1,51 +1,42 @@
 import grave from '../../data/graveAPI'
-import { createDashboardGravesTableTemplate } from '../../views/template dashboard/template-dashboard'
+import { createDashboardGravesTableTemplate, createSearchFilterDataTemplate } from '../../views/template dashboard/template-dashboard'
 
 const Graves = async () => {
   const renderGrave = await grave.getAllBlok()
+  if (!$('#data-container').length) {
+    createSearchFilterDataTemplate()
+  }
+
   $('#grave-dashboard').addClass('active')
   $('#list_table').empty()
   $('#list_table').append(createDashboardGravesTableTemplate())
 
-  renderGrave.blokA.forEach(tomb => {
-    if (!tomb.available) {
-      $('#graveA').append(`
-                    <td>${tomb.id}</td>
-            `)
-    }
+  Object.keys(renderGrave).forEach((blok) => {
+    let commaFlag = true
+    renderGrave[blok].forEach((slot) => {
+      if (!slot.available) {
+        let comma = ','
+
+        if (commaFlag) {
+          comma = ''
+          commaFlag = false
+        }
+
+        $(`#${blok}-data`).append(`<span>${comma} ${slot.id}</span>`)
+      }
+    })
   })
 
-  renderGrave.blokB.forEach(tomb => {
-    if (!tomb.available) {
-      $('#graveB').append(`  
-                    <td>${tomb.id}</td>
-            `)
-    }
-  })
+  $('#search-input').on('keyup', searchslots)
+}
 
-  renderGrave.blokC.forEach(tomb => {
-    if (!tomb.available) {
-      $('#graveC').append(`
-                    <td>${tomb.id}</td>
-            `)
-    }
-  })
-
-  renderGrave.blokD.forEach(tomb => {
-    if (!tomb.available) {
-      $('#graveD').append(`
-                    <td>${tomb.id}</td>
-            `)
-    }
-  })
-
-  renderGrave.blokE.forEach(tomb => {
-    if (!tomb.available) {
-      $('#graveE').append(`
-                    <td>${tomb.id}</td>
-            `)
-    }
-  })
+const searchslots = () => {
+  const value = $('#search-input').val().toLowerCase()
+  $('#list_table td span').filter(function () {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    return undefined
+  }
+  )
 }
 
 export default Graves

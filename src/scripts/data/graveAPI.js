@@ -3,9 +3,13 @@ import { db } from '../globals/firebase-init'
 
 const grave = {
   async getAllBlok () {
+    if (sessionStorage.getItem('blok')) {
+      return JSON.parse(sessionStorage.getItem('blok'))
+    }
     const bloks = ref(db, 'grave/')
     const snapshot = await get(bloks)
     if (snapshot.exists()) {
+      sessionStorage.setItem('blok', JSON.stringify(snapshot.val()))
       return snapshot.val()
     }
     return null
@@ -33,8 +37,6 @@ const grave = {
     const newAvailable = available !== true
     const updateData = {}
     updateData['/grave/blokA/' + id] = newAvailable
-    console.log(id)
-    console.log(available)
     return update(ref(db), updateData)
     // update(ref(db, 'grave/blokA' + id), {
     //   available

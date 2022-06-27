@@ -729,6 +729,61 @@ textarea {
   margin-bottom: 1rem;
 }
 
+#dashboard-main h1 {
+  font-weight: 200;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+#dashboard-catalogue {
+  display: flex;
+  width: 100%;
+  padding: 3rem;
+} 
+
+.catalogue-item {
+  color: white;
+  margin: 1rem;
+  padding: .5rem;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-shadow: -5px 6px 0 #FFB830;
+  background: #3DB2FF;
+}
+
+.catalogue-item:nth-child(2) {
+  background: #FFB830;
+  text-shadow: -5px 6px 0 #FF2442;
+}
+
+.catalogue-item:nth-child(2) > h3 {
+  text-shadow: -5px 6px 0 #3DB2FF;
+}
+
+.catalogue-item:nth-child(3) {
+  background: #FF2442;
+  text-shadow: -5px 6px 0  #3DB2FF;
+}
+
+.catalogue-item:nth-child(3) > h3 {
+  text-shadow: -5px 6px 0 #FFB830;
+}
+
+.catalogue-item h2 {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.catalogue-item h3 {
+  text-align: center;
+  font-size: 3.5rem;
+  margin: auto;
+  font-weight: 700;
+  text-shadow: -5px 6px 0 #FF2442;
+}
+
 /*sidebar*/
 .sidebar {
   width: 278px;
@@ -742,7 +797,6 @@ textarea {
   height: 90px;
   padding: 1rem 0rem 1rem 2rem;
   color: #fff;
-
 }
 
 .sidebar-brand span {
@@ -900,6 +954,10 @@ textarea {
   overflow: scroll
 }
 
+.table-title {
+  font-style: italic;
+}
+
 th {
   position: sticky;
   top: 0;
@@ -939,7 +997,7 @@ th {
   background-color: #FFB830;
 }
 
-.delete-button {
+.delete-button, .cancel-button {
   background-color: #FF2442;
 }
 
@@ -947,8 +1005,22 @@ th {
   background-color: #3db1ff80;
 }
 
-.delete-button:hover {
+.delete-button:hover, .cancel-button:hover {
   background-color: #ff244171;
+}
+
+.submit-button:hover {
+  background-color: #ffb83080;
+}
+
+.availability-edit {
+  width: 100px;
+}
+
+.availability-edit:hover {
+  opacity: .8;
+  filter: none;
+  transform: none;
 }
 
 .edit-input {
@@ -962,6 +1034,10 @@ th {
 
 .edit-input:focus {
   outline: #3DB2FF solid 1px;
+}
+
+.blok-th {
+  width: 70px;
 }
 
 /* ================= SIGNIN ================= */

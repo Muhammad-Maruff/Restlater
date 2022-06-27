@@ -18,6 +18,7 @@ const transaction = {
   setTransaction (data, index) {
     set(ref(db, 'transaction/' + index), data)
     sessionStorage.removeItem('transaction')
+    sessionStorage.removeItem('blok')
   },
 
   // slots = ['A12', 'A2']
@@ -26,6 +27,7 @@ const transaction = {
       const index = getIndex(slot)
       set(ref(db, 'grave/' + `blok${initial}` + `/${index}` + '/available'), false)
     })
+    sessionStorage.removeItem('blok')
   },
 
   freeSlots (slots, initial) {
@@ -33,11 +35,13 @@ const transaction = {
       const index = getIndex(slot)
       set(ref(db, 'grave/' + `blok${initial}` + `/${index}` + '/available'), true)
     })
+    sessionStorage.removeItem('blok')
   },
 
   removeTransaction (index) {
     set(ref(db, 'transaction/' + index), null)
     sessionStorage.removeItem('transaction')
+    sessionStorage.removeItem('blok')
   }
 }
 

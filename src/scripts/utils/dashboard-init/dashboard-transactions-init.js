@@ -3,6 +3,7 @@ import transaction from '../../data/transactionAPI'
 import user from '../../data/userAPI'
 import { createDashboardTransactionTableTemplate, createSearchFilterDataTemplate } from '../../views/template dashboard/template-dashboard'
 import getDate from '../date-init'
+import { deleteAlert } from '../popup/swal-delete-popup'
 import { searchData } from '../search-data'
 
 const Transactions = async () => {
@@ -29,18 +30,29 @@ const Transactions = async () => {
                 <td>${deal.total}</td>
                 <td>${deal.date}</td>
                 <td>
-                    <button class='edit-button dashboard-button'>Edit</button>
-                    <button class='delete-button dashboard-button'>Delete</button>
+                    <button id='transaction-edit' class='edit-button dashboard-button'>Edit</button>
+                    <button id='transaction-delete' class='delete-button dashboard-button'>Delete</button>
                 </td>
             </tr>
         `)
   })
 
-  $(document).on('click', '.edit-button', (e) => {
+  buttonInit()
+}
+
+const buttonInit = () => {
+  $(document).on('click', '#transaction-edit', (e) => {
     const index = e.target.parentElement.parentElement.id
     const parentChild = e.target.parentElement.parentElement.children
 
     changeColumnInput(parentChild, index)
+  })
+
+  $(document).on('click', '#transaction-delete', (e) => {
+    const parentChild = e.target.parentElement.parentElement.children
+    const index = parentChild[0].innerText
+    const slots = arrayMaker(parentChild[2].innerText)
+    deleteAlert(transaction.removeTransaction, Transactions, index, 'Transaction', slots, transaction.freeSlots)
   })
 }
 
@@ -60,7 +72,7 @@ const changeColumnInput = (parentChild, index) => {
   const actions = parentChild[5]
   $(actions).html(`
     <button id='${index}-edit' class='submit-button dashboard-button'>Submit</button>
-    <button id='${index}-cancel' class='delete-button dashboard-button'>Cancel</button>
+    <button id='${index}-cancel' class='cancel-button dashboard-button'>Cancel</button>
   `)
 
   $(document).on('click', `#${index}-edit`, async (e) => {
